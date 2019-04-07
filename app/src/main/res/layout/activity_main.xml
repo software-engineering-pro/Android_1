@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Cal="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.jwyc.calendarfinal.Calendarfinal
+            android:id="@+id/cal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            Cal:Today= "#ff0000"
+            Cal:CurrentBg="#6E6E6E"
+            Cal:CurrentBgDashPath="@array/customCalendar_currentDay_bg_DashPath"
+            Cal:CurrentBgStrokeWidth="1.5dip"
+
+            Cal:LineSpac="12dip"
+            Cal:RowL="@drawable/row_left"
+            Cal:RowR="@drawable/row_right"
+            Cal:MonthRowSpac="20dip"
+
+            Cal:MonthSpac="10dip"
+            Cal:SelectDateBg="#bdb76b"
+            Cal:SelectRadius="15dip"
+            Cal:SelectTextColor="#ffffff"
+            Cal:SelectWeekTextColor="#f67633"
+            Cal:TextColorDay="#686768"
+            Cal:TextColorMonth="#4b4b4b"
+
+            Cal:TextColorWeek="#9e9e9d"
+
+            Cal:SizeDay="17sp"
+            Cal:SizeMonth="20sp"
+            Cal:SizeWeek="17sp"
+             />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
