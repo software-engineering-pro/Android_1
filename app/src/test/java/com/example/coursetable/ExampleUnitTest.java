@@ -1,4 +1,4 @@
-package com.example.jwyc.calendarfinal;
+package com.example.coursetable;
 
 import org.junit.Test;
 
