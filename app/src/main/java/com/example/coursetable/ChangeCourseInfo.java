@@ -81,22 +81,4 @@ public class ChangeCourseInfo extends AppCompatActivity {
         });
 
     }
-
-//    private void loadCourse(){
-//
-//    }
-
-    //可能会存在
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if(resultCode == Activity.RESULT_OK && requestCode > 0 && data != null){
-//            Log.d("Course Code",course.getCourseCode());
-//            course = (Course)data.getSerializableExtra("course");
-//        }
-//    }
-
-//    protected void saveData(){
-//        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-//
-//    }
 }

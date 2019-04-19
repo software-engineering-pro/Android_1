@@ -1,3 +1,0 @@
-# Android_1
-大家传代码的时候记得先创建一个新的branch
-master里的是课程表

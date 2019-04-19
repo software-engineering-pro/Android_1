@@ -5,11 +5,11 @@
         android:id="@+id/add_courses"
         android:icon="@drawable/add"
         android:title="添加/修改课程"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/menu_about"
         android:tooltipText="Week8"
         android:title="Week8"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 </menu>

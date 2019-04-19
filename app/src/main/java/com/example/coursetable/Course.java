@@ -3,6 +3,7 @@ package com.example.coursetable;
 import android.view.View;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 public class Course implements Serializable {
 

@@ -4,7 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,15 +23,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
+//目前想的是一进来就打开Syllabus，所以目前主活动是它，往后可能会改
 
 public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout day;
 
-    //创建数据库
+    private DrawerLayout mDrawerLayout;
+
+    //创建数据库（只在程序安装的时候加载）
     private DatabaseHelper databaseHelper = new DatabaseHelper(this, "database.db", null, 1);
 
 
@@ -37,9 +45,56 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setContentView(R.layout.activity_main);
+
+        //加载顶部菜单栏（别的活动可能也需要）
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //抽屉布局
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle;
+        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView naviView = (NavigationView) findViewById(R.id.nav_view);
+//        setContentView(R.layout.activity_main);
+
+        //navi栏的默认选择
+        naviView.setCheckedItem(R.id.nav_syllabus);
+        //对navi栏进行事件监听
+        //你们的活动加载写在这个函数里面
+        naviView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+
+                if(id == R.id.nav_syllabus){
+                    //关闭弹窗即返回syllabus
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                }else if(id == R.id.nav_reminder){
+                    //你们的Activity
+                    Toast.makeText(MainActivity.this, "Here is Syllabus", Toast.LENGTH_SHORT).show();
+                }else if(id == R.id.nav_calender) {
+                    //你们的Activity
+                    Toast.makeText(MainActivity.this, "Here is Calender", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+        //加载数据Syllabus的数据
         loadData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //最左上角的按钮设置
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void loadData(){
@@ -138,11 +193,8 @@ public class MainActivity extends AppCompatActivity {
             v.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
-//                    return true;
                     Intent intent = new Intent(MainActivity.this, ChangeCourseInfo.class);
-//                    Log.d("Course Code", course.getCourseCode());
                     intent.putExtra("course", course);
-//                    setResult(Activity.RESULT_OK, intent);
                     startActivityForResult(intent, 1);
                     deleteData(course);
                     v.setVisibility(View.GONE);
@@ -152,11 +204,13 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -169,14 +223,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(this, AboutActivity.class);
                 startActivity(intent1);
                 break;
+            case R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);  //让滑动菜单显示出来
+                break;
+            default:
+
         }
         return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //接受别的活动的反馈
-        //目前没有反馈
+        //Syllbus活动接受别的活动的反馈
         Log.d("SB", "NMSL" );
         if(requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
             Course course = (Course) data.getSerializableExtra("course");
