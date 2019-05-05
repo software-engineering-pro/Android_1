@@ -19,7 +19,7 @@ public class ChangeCourseInfo extends AppCompatActivity {
     protected final static int delete_Code = 88;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this, "database.db", null, 1);
 
-    Course course;
+    CourseEdition courseEdition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +34,15 @@ public class ChangeCourseInfo extends AppCompatActivity {
         final EditText inputStart = (EditText) findViewById(R.id.classes_begin);
         final EditText inputEnd = (EditText) findViewById(R.id.classes_ends);
 
-        course = (Course)getIntent().getSerializableExtra("course");
+        courseEdition = (CourseEdition) getIntent().getSerializableExtra("course");
 
-        inputCourseCode.setText(course.getCourseCode());
-        inputCourseName.setText(course.getCourseName());
-        inputTeacher.setText(course.getTeacher());
-        inputClassRoom.setText(course.getClassRoom());
-        inputDay.setText(String.valueOf(course.getDay()));
-        inputStart.setText(String.valueOf(course.getStart()));
-        inputEnd.setText(String.valueOf(course.getEnd()));
+        inputCourseCode.setText(courseEdition.getCourseCode());
+        inputCourseName.setText(courseEdition.getCourseName());
+        inputTeacher.setText(courseEdition.getTeacher());
+        inputClassRoom.setText(courseEdition.getClassRoom());
+        inputDay.setText(String.valueOf(courseEdition.getDay()));
+        inputStart.setText(String.valueOf(courseEdition.getStart()));
+        inputEnd.setText(String.valueOf(courseEdition.getEnd()));
 
         Button button_save_info = (Button)findViewById(R.id.button_save_info);
         button_save_info.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +59,9 @@ public class ChangeCourseInfo extends AppCompatActivity {
                 if(courseCode.equals("")||courseName.equals("") || day.equals("") || start.equals("") || end.equals("")){
                     Toast.makeText(ChangeCourseInfo.this, "基本信息没有填写", Toast.LENGTH_SHORT).show();
                 }else {
-                    course = new Course(courseCode,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
+                    courseEdition = new CourseEdition(courseCode,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
                     Intent intent = new Intent(ChangeCourseInfo.this, MainActivity.class);
-                    intent.putExtra("course1", course);
+                    intent.putExtra("course1", courseEdition);
                     setResult(RESULT_OK, intent);
 //                    startActivityForResult(intent, 1);
 //                    startActivity(intent);

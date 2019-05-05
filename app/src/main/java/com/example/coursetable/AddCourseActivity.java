@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Test", "AddCourseActivity is started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         setFinishOnTouchOutside(false); //点击外部窗口时不销毁
@@ -40,9 +42,9 @@ public class AddCourseActivity extends AppCompatActivity {
                 if(courseCode.equals("")||courseName.equals("") || day.equals("") || start.equals("") || end.equals("")){
                     Toast.makeText(AddCourseActivity.this, "基本信息没有填写", Toast.LENGTH_SHORT).show();
                 }else {
-                    Course course = new Course(courseCode,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
+                    CourseEdition courseEdition = new CourseEdition(courseCode,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
                     Intent intent = new Intent(AddCourseActivity.this, MainActivity.class);
-                    intent.putExtra("course", course);
+                    intent.putExtra("course", courseEdition);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }

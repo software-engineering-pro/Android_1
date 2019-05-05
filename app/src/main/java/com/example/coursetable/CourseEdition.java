@@ -5,7 +5,7 @@ import android.view.View;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-public class Course implements Serializable {
+public class CourseEdition implements Serializable {
 
     private String courseCode;
     private String courseName;
@@ -15,7 +15,7 @@ public class Course implements Serializable {
     private int classStart;
     private int classEnd;
 
-    public Course(String courseCode,String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
+    public CourseEdition(String courseCode,String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.teacher = teacher;

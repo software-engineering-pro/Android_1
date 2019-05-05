@@ -9,15 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoadActivity"
+        <activity android:name=".course_event.AddEvent"
+            android:launchMode="standard" />
+
+        <activity android:name=".course_event.EventContentActivity" />
+        <activity
+            android:name=".course_event.AddCourseEvent"
+            android:launchMode="standard" />
+        <activity android:name=".CurriculumActivity" />
+        <activity
+            android:name=".LoadActivity"
             android:label="Loading"
             android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ChangeCourseInfo"
             android:launchMode="standard"
@@ -32,11 +41,13 @@
             android:name=".MainActivity"
             android:label="Syllabus"
             android:launchMode="standard">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
