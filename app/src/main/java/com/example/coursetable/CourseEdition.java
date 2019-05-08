@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 public class CourseEdition implements Serializable {
 
     private String courseCode;
-    private int verNum;     //Every course has many class version
     private String courseName;
     private String teacher;
     private String classRoom;
@@ -16,9 +15,8 @@ public class CourseEdition implements Serializable {
     private int classStart;
     private int classEnd;
 
-    public CourseEdition(String courseCode,int verNum, String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
+    public CourseEdition(String courseCode,String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
         this.courseCode = courseCode;
-        this.verNum = verNum;
         this.courseName = courseName;
         this.teacher = teacher;
         this.classRoom = classRoom;
@@ -33,14 +31,6 @@ public class CourseEdition implements Serializable {
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
-    }
-
-    public int getVerNum() {
-        return verNum;
-    }
-
-    public void setVerNum(int verNum) {
-        this.verNum = verNum;
     }
 
     public String getCourseName() {

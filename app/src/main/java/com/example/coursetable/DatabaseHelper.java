@@ -3,7 +3,6 @@ package com.example.coursetable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -13,14 +12,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    public static final String CREATE_COURSES = "create table courses("+
-            "course_code char(10),"+
-            "class_version integer primary key autoincrement ,"+
-            "course_name text,"+
-            "teacher text,"+
-            "class_room text,"+
-            "day integer,"+
-            "class_start integer,"+
+    public static final String CREATE_COURSES = "create table courses(" +
+            "course_code char(10) primary key," +
+            "course_name text," +
+            "teacher text," +
+            "class_room text," +
+            "day integer," +
+            "class_start integer," +
             "class_end integer)";
 
     public static final String CREATE_WEEK = "create table week(" +
@@ -36,15 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "warn_time timestamp," +
             "relevant_course char(10)," +
             "deadline timestamp," +
-            "type_code int)";
+            "type_code int," +
+            "foreign key(relevant_course) references courses(course_code) on Delete restrict on update cascade," +
+            "foreign key(type_code) references types(type_code) on Delete cascade on update cascade" +
+            ")";
     public static final String CREATE_TYPES = "create table types(" +
             "type_code integer primary key autoincrement," +
             "type_name text)";
-    public static final String CREATE_COURSE_EVENTS = "create table course_events("+
-            "course_code char(10),"+
-            "event_code int,"+
-            "primary key (course_code, event_code),"+
-            "foreign key (event_code) references  events(event_code) on delete cascade  on update cascade)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -52,15 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_WEEK);
         db.execSQL(CREATE_TYPES);
         db.execSQL(CREATE_EVENTS);
-        db.execSQL(CREATE_COURSE_EVENTS);
-    }
-
-    @Override
-    public void onConfigure(SQLiteDatabase db) {
-        super.onConfigure(db);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            db.setForeignKeyConstraintsEnabled(true);
-        }
     }
 
     @Override

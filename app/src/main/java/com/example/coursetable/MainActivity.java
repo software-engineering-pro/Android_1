@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
             do{
                 coursesList.add(new CourseEdition(
                         cursor.getString(cursor.getColumnIndex("course_code")),
-                        cursor.getInt(cursor.getColumnIndex("class_version")),
                         cursor.getString(cursor.getColumnIndex("course_name")),
                         cursor.getString(cursor.getColumnIndex("teacher")),
                         cursor.getString(cursor.getColumnIndex("class_room")),
@@ -224,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, AddCourseEvent.class);
-                            intent.putExtra("this_course", courseEdition);
                             startActivity(intent);
                         }
                     });
@@ -299,5 +297,14 @@ public class MainActivity extends AppCompatActivity {
             updateData(courseEdition);
             creatLeftView(courseEdition);
         }
+    }
+
+    //判断点击点是否在View内部
+    private boolean isInView(View v, MotionEvent event) {
+        Rect frame = new Rect();
+        v.getHitRect(frame);
+        float eventX = event.getX();
+        float eventY = event.getY();
+        return frame.contains((int) eventX, (int) eventY);
     }
 }
