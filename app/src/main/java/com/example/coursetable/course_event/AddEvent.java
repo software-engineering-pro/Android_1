@@ -21,6 +21,7 @@ public class AddEvent extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Test", "AddEvent is created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         setFinishOnTouchOutside(false); //点击外部窗口时不销毁
@@ -29,10 +30,15 @@ public class AddEvent extends AppCompatActivity {
         final EditText inputEventDetail = (EditText) findViewById(R.id.input_event_detail);
         final EditText inputEventDeadline = (EditText) findViewById(R.id.input_event_deadline);
 
+        //获取点击课程信息
+        final CourseEdition courseEdition = (CourseEdition)getIntent().getSerializableExtra("this_course");
+
+
         Button okButton = (Button) findViewById(R.id.button1);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //这里输入的内容三条不能与其他的重复
                 String eventTitle = inputEventTitle.getText().toString();
                 String eventDetail = inputEventDetail.getText().toString();
                 String eventDeadline = inputEventDeadline.getText().toString();
@@ -41,6 +47,7 @@ public class AddEvent extends AppCompatActivity {
                 Event event = new Event(-1,eventTitle, eventDetail, eventDeadline);
                 Intent intent = new Intent(AddEvent.this, AddCourseEvent.class);
                 intent.putExtra("event", event);
+                intent.putExtra("this_course", courseEdition);
                 setResult(Activity.RESULT_OK, intent);
                 Log.d("Test","传递数据");
                 finish();

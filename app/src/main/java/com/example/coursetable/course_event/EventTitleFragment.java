@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.coursetable.CourseEdition;
 import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
 import com.example.coursetable.R;
@@ -46,7 +47,9 @@ public class EventTitleFragment extends Fragment {
         List<Event> eventList = new ArrayList<>();
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "database.db", null, 1);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from events", null);
+
+        CourseEdition courseEdition = (CourseEdition) getActivity().getIntent().getSerializableExtra("this_course");
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from events WHERE event_code = (select event_code from course_events where course_code = ?)",new String[]{courseEdition.getCourseCode()});
         if(cursor.moveToFirst()){
             do{
                 eventList.add(new Event(

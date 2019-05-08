@@ -42,7 +42,8 @@ public class AddCourseActivity extends AppCompatActivity {
                 if(courseCode.equals("")||courseName.equals("") || day.equals("") || start.equals("") || end.equals("")){
                     Toast.makeText(AddCourseActivity.this, "基本信息没有填写", Toast.LENGTH_SHORT).show();
                 }else {
-                    CourseEdition courseEdition = new CourseEdition(courseCode,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
+                    //这里class_version随意，所以设为1
+                    CourseEdition courseEdition = new CourseEdition(courseCode,-1,courseName, teacher, classRoom, Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
                     Intent intent = new Intent(AddCourseActivity.this, MainActivity.class);
                     intent.putExtra("course", courseEdition);
                     setResult(Activity.RESULT_OK, intent);
