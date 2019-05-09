@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.coursetable">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoadActivity"
+        <activity android:name=".GuideActivity"
             android:label="Loading"
             android:launchMode="standard">
             <intent-filter>
@@ -17,7 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.coursetable.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name=".LoginActivity"/>
+        <activity
+            android:name=".LoadActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".ChangeCourseInfo"
             android:launchMode="standard"
@@ -29,9 +44,15 @@
             android:name=".AddCourseActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
+            android:name=".SettingActivity"
+            android:label="Setting"
+            android:launchMode="standard"/>
+        <activity android:name=".ClipImageActivity"/>
+        <activity
             android:name=".MainActivity"
             android:label="Syllabus"
             android:launchMode="standard">
+
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 

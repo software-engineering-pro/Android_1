@@ -19,21 +19,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
-
 import java.util.ArrayList;
 //目前想的是一进来就打开Syllabus，所以目前主活动是它，往后可能会改
 
 public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout day;
-
     private DrawerLayout mDrawerLayout;
-
     //创建数据库（只在程序安装的时候加载）
     private DatabaseHelper databaseHelper = new DatabaseHelper(this, "database.db", null, 1);
 
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //加载顶部菜单栏（别的活动可能也需要）
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
         //navi栏的默认选择
         naviView.setCheckedItem(R.id.nav_syllabus);
         //对navi栏进行事件监听
+
         //你们的活动加载写在这个函数里面
+
         naviView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
-
                 if(id == R.id.nav_syllabus){
                     //关闭弹窗即返回syllabus
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -78,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 }else if(id == R.id.nav_calender) {
                     //你们的Activity
                     Toast.makeText(MainActivity.this, "Here is Calender", Toast.LENGTH_SHORT).show();
+                } else if(id == R.id.nav_setting) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 return true;
             }
@@ -86,7 +89,10 @@ public class MainActivity extends AppCompatActivity {
         loadData();
     }
 
+
+
     @Override
+
     public void onBackPressed() {
         //最左上角的按钮设置
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -134,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                 course.getStart()+"",
                                 course.getEnd()+""}
                 );
+
     }
 
     private void updateData(Course course){

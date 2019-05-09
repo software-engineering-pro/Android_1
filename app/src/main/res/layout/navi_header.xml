@@ -5,12 +5,15 @@
     android:layout_height="180dp"
     android:padding="10dp"
     android:background="?attr/colorPrimary">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/nav_icon"
-        android:layout_centerInParent="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/nav_icon" />
+
     <TextView
         android:id="@+id/mail"
         android:layout_width="wrap_content"
@@ -27,6 +30,5 @@
         android:text="KoryHu"
         android:textColor="#FFF"
         android:textSize="14sp"/>
-
 
 </RelativeLayout>
