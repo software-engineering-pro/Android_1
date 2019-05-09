@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Calendar">
+        <attr name="BgMonth" format="color" />
+        <attr name="BgWeek" format="color" />
+        <attr name="BgDay" format="color" />
+
+        <attr name="TextColorMonth" format="color" />           <!--标题字体颜色-->
+        <attr name="TextColorWeek" format="color" />            <!--星期字体颜色-->
+        <attr name="SelectWeekTextColor" format="color" />      <!--当前星期字体颜色-->
+        <attr name="TextColorDay" format="color" />             <!--日期字体颜色-->
+
+        <attr name="SizeMonth" format="dimension" />        <!--标题字体大小-->
+        <attr name="SizeWeek" format="dimension" />         <!--星期字体大小-->
+        <attr name="SizeDay" format="dimension" />          <!--日期字体大小-->
+        <attr name="TextSizePre" format="dimension"/>
+
+
+        <attr name="RowL" format="reference" />            <!--箭头-->
+        <attr name="RowR" format="reference" />            <!--箭头-->
+        <attr name="MonthRowSpac" format="dimension" />
+
+        <attr name="SelectTextColor" format="color" />          <!--选中日期字体颜色-->
+        <attr name="SelectDateBg" format="color" />                 <!--选中日期背景-->
+        <attr name="SelectRadius" format="dimension" />         <!--选中日期背景半径-->
+        <attr name="CurrentBg" format="color" />                <!--当天日期背景-->
+        <attr name="CurrentBgStrokeWidth" format="dimension" /> <!--当天日期背景虚线宽度-->
+        <attr name="CurrentBgDashPath" format="reference" />    <!--当天日期背景虚线数组-->
+        <attr name="Today" format="color" />
+
+        <attr name="MonthSpac" format="dimension" />            <!--标题月份上下间隔-->
+        <attr name="LineSpac" format="dimension" />             <!--日期行间距-->
+    </declare-styleable>
+
+</resources>
