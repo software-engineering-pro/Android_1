@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.coursetable.CourseEdition;
 import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
 import com.example.coursetable.R;
@@ -28,6 +30,7 @@ public class EventTitleFragment extends Fragment {
 
     private LayoutInflater inflater;
     private ViewGroup container;
+    private static CourseEdition courseEdition;
 
     @Nullable
     @Override
@@ -35,8 +38,12 @@ public class EventTitleFragment extends Fragment {
         View view = inflater.inflate(R.layout.event_title_frag, container, false);
         RecyclerView eventTitleRecyclerView = (RecyclerView) view.findViewById(R.id.event_title_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        CourseEdition temp = (CourseEdition)getActivity().getIntent().getSerializableExtra("this_course");
+        if(temp != null){
+            courseEdition = temp;
+        }
         eventTitleRecyclerView.setLayoutManager(layoutManager);
-
+        Log.d("Test", "Fragment is created");
         EventAdapter adapter = new EventAdapter(getEvents());
         eventTitleRecyclerView.setAdapter(adapter);
         return view;
@@ -45,8 +52,11 @@ public class EventTitleFragment extends Fragment {
     public List<Event> getEvents(){
         List<Event> eventList = new ArrayList<>();
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "database.db", null, 1);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from events", null);
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
+        Log.d("Test", "fragment " + courseEdition.getCourseCode());
+//        courseEdition = (CourseEdition) getActivity().getIntent().getSerializableExtra("this_course");
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from events WHERE event_code in (select event_code from course_events where course_code = ?)",new String[]{courseEdition.getCourseCode()});
+        Log.d("Test", "读取数据");
         if(cursor.moveToFirst()){
             do{
                 eventList.add(new Event(
@@ -54,7 +64,9 @@ public class EventTitleFragment extends Fragment {
                         cursor.getString(cursor.getColumnIndex("topic")),
                         cursor.getString(cursor.getColumnIndex("detail")),
                         cursor.getString(cursor.getColumnIndex("deadline"))
-                ));
+                        )
+                );
+                Log.d("Test",cursor.getString(cursor.getColumnIndex("topic")));
             }while (cursor.moveToNext());
             cursor.close();
         }
