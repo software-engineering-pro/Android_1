@@ -225,7 +225,9 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, AddCourseEvent.class);
                             intent.putExtra("this_course", courseEdition);
-                            startActivity(intent);
+                            startActivityForResult(intent, 6);
+                            Log.d("Test1","Start 6");
+//                            startActivity(intent);
                         }
                     });
 
@@ -298,6 +300,13 @@ public class MainActivity extends AppCompatActivity {
             creatItemCourseView(courseEdition);
             updateData(courseEdition);
             creatLeftView(courseEdition);
+        }if(requestCode == 6 && resultCode == Activity.RESULT_OK && data != null){
+            //该部分处理刷新addevent
+            CourseEdition courseEdition = (CourseEdition) data.getSerializableExtra("course");
+            Intent intent = new Intent(MainActivity.this, AddCourseEvent.class);
+            intent.putExtra("this_course", courseEdition);
+            startActivityForResult(intent, 6);
+            Log.d("Test1","Start 6");
         }
     }
 }

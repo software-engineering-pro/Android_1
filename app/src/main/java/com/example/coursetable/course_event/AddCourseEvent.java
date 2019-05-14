@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.example.coursetable.CourseEdition;
 import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
+import com.example.coursetable.MainActivity;
 import com.example.coursetable.R;
 
 import java.util.List;
@@ -72,9 +73,15 @@ public class AddCourseEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == 3 && resultCode == Activity.RESULT_OK && data != null){
+            //接受addEvent
             Event event = (Event) data.getSerializableExtra("event");
             CourseEdition courseEdition = (CourseEdition) data.getSerializableExtra("this_course");
             saveData(event, courseEdition);
+            Intent intent = new Intent(AddCourseEvent.this, MainActivity.class);
+            intent.putExtra("course", courseEdition);
+            setResult(Activity.RESULT_OK, intent);
+            Log.d("Test1", "go back");
+            finish();
         }
     }
 
@@ -82,4 +89,5 @@ public class AddCourseEvent extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
 }

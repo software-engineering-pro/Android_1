@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".course_event.AddEvent"
+        <activity android:name=".course_event.DatepickerActivity"></activity>
+        <activity
+            android:name=".course_event.AddEvent"
             android:launchMode="standard" />
-
         <activity android:name=".course_event.EventContentActivity" />
         <activity
             android:name=".course_event.AddCourseEvent"

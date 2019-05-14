@@ -1,5 +1,7 @@
 package com.example.coursetable.course_event;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.example.coursetable.CourseEdition;
 import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
+import com.example.coursetable.MainActivity;
 import com.example.coursetable.R;
 
 import java.util.ArrayList;
@@ -170,6 +173,12 @@ public class EventTitleFragment extends Fragment {
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
         sqLiteDatabase.execSQL("delete from events where " + "event_code = ?", new Integer[]{event.getEventCode()});
         sqLiteDatabase.close();
+        Activity activity = getActivity();
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("course", courseEdition);
+        activity.setResult(Activity.RESULT_OK, intent);
+        Log.d("Test1", "go back");
+        activity.finish();
     }
 
 
