@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/btn_switch_theme_blue"
+            android:title="BLUE"/>
+        <item
+            android:id="@+id/btn_switch_theme_green"
+            android:title="GREEN"/>
+        <item
+            android:id="@+id/btn_switch_theme_pink"
+            android:title="PINK"/>
+        <item
+            android:id="@+id/btn_switch_theme_red"
+            android:title="RED"/>
+        <item
+            android:id="@+id/btn_switch_theme_black"
+            android:title="BLACK"/>
+
+    </group>
+</menu>

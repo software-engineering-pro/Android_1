@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Cal="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            Cal:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        Cal:layout_constraintBottom_toBottomOf="parent">
+
+
+        <calendarfinal.Calendarfinal
+            android:id="@+id/cal"
+            android:layout_width="match_parent"
+
+
+            android:layout_height="match_parent"
+            Cal:CurrentBg="#6E6E6E"
+
+            Cal:CurrentBgStrokeWidth="1.5dip"
+            Cal:LineSpac="20dip"
+            Cal:MonthRowSpac="20dip"
+            Cal:MonthSpac="25dip"
+
+            Cal:RowL="@drawable/row_left"
+            Cal:RowR="@drawable/row_right"
+            Cal:SelectDateBg="#cd5c5c"
+            Cal:SelectRadius="15dip"
+            Cal:SelectTextColor="#e0ffff"
+            Cal:SelectWeekTextColor="#dc143c"
+            Cal:SizeDay="17sp"
+            Cal:TextSizePre="10sp"
+            Cal:SizeMonth="20sp"
+
+            Cal:SizeWeek="17sp"
+            Cal:TextColorDay="#696969"
+            Cal:TextColorMonth="#dc143c"
+            Cal:TextColorWeek="#bc8f8f"
+            Cal:Today="#e0ffff" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/bgw"-->
+        <!--/>-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/SetBeginDate"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="SETTING"
+
+            />
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:text="LOGOUT"
+            />
+
+
+    </RelativeLayout >
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

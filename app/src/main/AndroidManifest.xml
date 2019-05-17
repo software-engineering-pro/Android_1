@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.memo">
+    package="com.example.coursetable">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -9,23 +11,70 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".EditNoteActivity"
-            android:parentActivityName=".MainActivity"
-            />
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".course_event.AddEvent"
+            android:label="Add Event"
+            android:launchMode="standard" />
+        <activity android:name=".course_event.EventContentActivity" />
+        <activity
+            android:name="calendarfinal.MainActivity"
+            android:label="Calendar" />
+        <activity android:name="calendarfinal.ResetActivity" />
+        <activity android:name="calendarfinal.RegisterActivity" />
+        <activity android:name=".course_event.DatepickerActivity" />
+        <activity
+            android:name=".course_event.AddCourseEvent"
+            android:label="EventList"
+            android:launchMode="standard" />
+        <activity android:name=".CurriculumActivity" />
+        <activity
+            android:name="calendarfinal.LoginActivity"
+            android:label="Calendar"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ChangeCourseInfo"
+            android:label="Change Course"
+            android:launchMode="standard" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="Setting"
+            android:launchMode="standard" />
+        <activity android:name=".ClipImageActivity" />
+        <activity android:name=".AboutActivity"
+            android:label="About"/>
+        <activity android:name=".AddCourseActivity"
+            android:label="Add Course"/>
+        <activity
+            android:name=".MainActivity"
+            android:label="Syllabus"
+            android:launchMode="standard" />
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
+        <activity
+            android:name="memo.EditNoteActivity"
+            android:label="Edit"
+            android:parentActivityName="memo.MainActivity" />
+        <activity
+            android:name="memo.MainActivity"
+            android:label="Memo" />
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+
+        <activity android:name=".ThemeActivity"
+            android:label="Theme"
+            />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

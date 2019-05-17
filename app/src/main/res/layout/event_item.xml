@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="18sp"
+        android:padding="10dp">
+    </TextView>
+    <LinearLayout
+        android:id="@+id/delete_bar"
+        android:visibility="invisible"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/cancel_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:padding="10dp">
+        </TextView>
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/delete_icon" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

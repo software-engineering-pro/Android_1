@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="memo.MainActivity">
     <item
         android:id="@+id/save_note"
-        android:title="SAVE"
-        app:showAsAction="ifRoom" />
+        android:orderInCategory="100"
+
+        android:title="@string/save"
+        app:showAsAction="never"
+        />
+
 </menu>
