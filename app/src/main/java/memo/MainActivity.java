@@ -35,7 +35,6 @@ import memo.model.Note;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
 import static memo.EditNoteActivity.NOTE_EXTRA_Key;
 
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         setContentView(R.layout.rmain);
         Toolbar toolbar = findViewById(R.id.toolbar);   //TODO
         setSupportActionBar(toolbar);
