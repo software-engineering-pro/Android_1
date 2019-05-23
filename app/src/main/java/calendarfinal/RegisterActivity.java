@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.coursetable.PrivacyActivity;
 import com.example.coursetable.R;
 
 import butterknife.BindView;
@@ -78,9 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
                     //将用户名和密码加入到数据库中
                     mDBOpenHelper.add(username, password2);
                     Intent intent2 = new Intent();
-                    intent2.setComponent(new ComponentName(RegisterActivity.this, "com.example.coursetable.MainActivity"));
-                    // intent2 = new Intent(this, MainActivity.class);
-                    startActivity(intent2);
+                    if(getIntent().getStringExtra("extra_data")==null){
+                        intent2.setComponent(new ComponentName(RegisterActivity.this, "com.example.coursetable.MainActivity"));
+                        startActivity(intent2);
+                    }
                     finish();
                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_courses"
-        android:icon="@drawable/add"
+        android:icon="@drawable/add2"
         android:title="添加/修改课程"
         app:showAsAction="always"
         />

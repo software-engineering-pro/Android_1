@@ -30,6 +30,7 @@
 
         <attr name="MonthSpac" format="dimension" />            <!--标题月份上下间隔-->
         <attr name="LineSpac" format="dimension" />             <!--日期行间距-->
+        <attr name="EventsRadius" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="ClipViewLayout">

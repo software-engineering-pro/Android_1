@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/settingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <Button
+        android:id="@+id/reset"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="    Reset"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat"
+        android:text="Enable device lock" />
+
+</LinearLayout>
+

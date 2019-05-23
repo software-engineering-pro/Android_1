@@ -23,6 +23,9 @@
         <activity android:name="calendarfinal.ResetActivity" />
         <activity android:name="calendarfinal.RegisterActivity" />
         <activity android:name=".course_event.DatepickerActivity" />
+        <activity android:name="calendarfinal.ViewEvents"
+            android:label="EventList"
+            android:launchMode="standard"/>
         <activity
             android:name=".course_event.AddCourseEvent"
             android:label="EventList"
@@ -30,7 +33,7 @@
         <activity android:name=".CurriculumActivity" />
         <activity
             android:name="calendarfinal.LoginActivity"
-            android:label="Calendar"
+            android:label="Toolkits"
             android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,22 +62,22 @@
         <!-- <action android:name="android.intent.action.MAIN" /> -->
 
         <activity
-            android:name="memo.EditNoteActivity"
+            android:name="simplenotepad.EditNoteActivity"
             android:label="Edit"
-            android:parentActivityName="memo.MainActivity" />
+            />
         <activity
-            android:name="memo.MainActivity"
-            android:label="Memo" />
+            android:name="simplenotepad.MainActivity"
+            android:label="Reminder" />
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
 
         <activity android:name=".ThemeActivity"
             android:label="Theme"
             />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme" />
+
+        <activity android:name=".PrivacyActivity"
+            android:label="Privacy"
+            />
     </application>
 
 </manifest>

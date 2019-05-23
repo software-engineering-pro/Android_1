@@ -10,7 +10,7 @@
 
     <!--当前主页面的layout，直接引用-->
     <include
-        layout="@layout/rmain1"
+        layout="@layout/rmain3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

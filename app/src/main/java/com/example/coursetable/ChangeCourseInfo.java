@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
 
 public class ChangeCourseInfo extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class ChangeCourseInfo extends AppCompatActivity {
     CourseEdition course;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_course_info);
         setFinishOnTouchOutside(false);

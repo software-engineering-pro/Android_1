@@ -2,8 +2,6 @@ package calendarfinal;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,18 +15,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-
-import com.example.coursetable.DatabaseHelper;
-import com.example.coursetable.Event;
 import com.example.coursetable.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
@@ -63,7 +56,7 @@ public class Calendarfinal extends View {
 
     private float titleHeight, weekHeight, dayHeight, preHeight, oneHeight;
     private int columnWidth;       //每列宽度
-
+    private float EventsRadius;
     private Date month; //当前的月份
     private String Mmonth;
     //private String Month;
@@ -107,6 +100,7 @@ public class Calendarfinal extends View {
         Today = a.getColor(R.styleable.Calendar_Today, Color.YELLOW);
         SelectDateBg = a.getColor(R.styleable.Calendar_SelectDateBg, Color.LTGRAY);
         SelectRadius = a.getDimension(R.styleable.Calendar_SelectRadius, 20);
+        EventsRadius = a.getDimension(R.styleable.Calendar_EventsRadius, 20);
         CurrentBgStrokeWidth = a.getDimension(R.styleable.Calendar_CurrentBgStrokeWidth, 5);
         LineSpac = a.getDimension(R.styleable.Calendar_LineSpac, 100);
         a.recycle();  //注意回收
@@ -310,32 +304,32 @@ public class Calendarfinal extends View {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        drawSyllabus(canvas);
-        drawReminder(canvas);
+//        drawSyllabus(canvas);
+//        drawReminder(canvas);
     }
 
 
-    private void drawSyllabus(Canvas canvas){
-        Paint.setTextSize(SizeMonth);
-        Paint.setColor(TextColorMonth);
-        float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
-        float textStart = (getWidth() - textLen)/ 2;
-//        canvas.drawText("Syllabus", textStart,
-//                MonthSpac+FontUtil.getFontLeading(Paint)+100, Paint);
-        int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[0]);
-        canvas.drawText("Syllabus", (columnWidth - len)/2, titleHeight + FontUtil.getFontLeading(Paint)+1000, Paint);
-
-    }
-
-    private void drawReminder(Canvas canvas){
-        Paint.setTextSize(SizeMonth);
-        Paint.setColor(TextColorMonth);
-        float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
-
-        int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[5]);
-        canvas.drawText("Reminder", 5 * columnWidth+(columnWidth - len)/2, titleHeight + FontUtil.getFontLeading(Paint)+1000, Paint);
-
-    }
+//    private void drawSyllabus(Canvas canvas){
+//        Paint.setTextSize(SizeMonth);
+//        Paint.setColor(TextColorMonth);
+//        float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
+//        float textStart = (getWidth() - textLen)/ 2;
+////        canvas.drawText("Syllabus", textStart,
+////                MonthSpac+FontUtil.getFontLeading(Paint)+100, Paint);
+//        int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[0]);
+//        canvas.drawText("Syllabus", (columnWidth - len)/2, titleHeight + FontUtil.getFontLeading(Paint)+1000, Paint);
+//
+//    }
+//
+//    private void drawReminder(Canvas canvas){
+//        Paint.setTextSize(SizeMonth);
+//        Paint.setColor(TextColorMonth);
+//        float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
+//
+//        int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[5]);
+//        canvas.drawText("Reminder", 5 * columnWidth+(columnWidth - len)/2, titleHeight + FontUtil.getFontLeading(Paint)+1000, Paint);
+//
+//    }
 
 
 
@@ -353,7 +347,7 @@ public class Calendarfinal extends View {
         float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
         float textStart = (getWidth() - textLen)/ 2;
         canvas.drawText(MonthtoString(month), textStart,
-                MonthSpac+FontUtil.getFontLeading(Paint), Paint);
+                MonthSpac+ FontUtil.getFontLeading(Paint), Paint);
         /*绘制左右箭头*/
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), RowL);
         int h = bitmap.getHeight();
@@ -386,7 +380,7 @@ public class Calendarfinal extends View {
             }else{
                 Paint.setColor(TextColorWeek);
             }
-            int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[i]);
+            int len = (int) FontUtil.getFontlength(Paint, WEEK_STR[i]);
             int x = i * columnWidth + (columnWidth - len)/2;
             canvas.drawText(WEEK_STR[i], x, titleHeight + FontUtil.getFontLeading(Paint), Paint);
         }
@@ -445,7 +439,7 @@ public class Calendarfinal extends View {
                 //选中的日期字体白色，橙色背景
                 Paint.setColor(SelectTextColor);
                 bgPaint.setColor(SelectDateBg);
-                //绘制橙色圆背景，参数一是中心点的x轴，参数二是中心点的y轴，参数三是半径，参数四是paint对象；
+
                 canvas.drawCircle(left+columnWidth/2, top + LineSpac +dayHeight/2, SelectRadius, bgPaint);
 //                float textLen = FontUtil.getFontlength(Paint, MonthtoString(month));
 //                float textStart = (getWidth() - textLen)/ 2;
@@ -456,18 +450,27 @@ public class Calendarfinal extends View {
                 Paint.setColor(TextColorDay);
             }
 
-            int len = (int)FontUtil.getFontlength(Paint, day+"");
+            int len = (int) FontUtil.getFontlength(Paint, day+"");
             int x = left + (columnWidth - len)/2;
-            if(isCurrentMonth && currentDay == day){
+            if(isCurrentMonth && currentDay == day && selectDay!=currentDay){
                 Paint.setColor(Today);
                 canvas.drawText(day+"", x, top + LineSpac + dayTextLeading, Paint);
-            }else {
+            }
+            else if(isCurrentMonth && currentDay == day && selectDay==currentDay){
+                Log.d("TTTTTT","TTTTTT");
+                Paint.setColor(SelectTextColor);
+                bgPaint.setColor(SelectDateBg);
+
+                canvas.drawCircle(left+columnWidth/2, top + LineSpac +dayHeight/2, SelectRadius, bgPaint);
+                canvas.drawText(day+"", x, top + LineSpac + dayTextLeading, Paint);
+            } else{
                 canvas.drawText(day+"", x, top + LineSpac + dayTextLeading, Paint);
             }
 
             //画事件数目
-            Paint.setTextSize(SizeDay);
-            Paint.setColor(TextColorMonth);
+            Paint.setTextSize(SizeDay/2);
+            Paint.setColor(Color.WHITE);
+            bgPaint.setColor(SelectDateBg);
             Date thatday;
             int Events;
             thatday = StrToDate(Mmonth+"-"+day+" 00:00:00");
@@ -476,7 +479,15 @@ public class Calendarfinal extends View {
                 Events = Syllabusmap.get(thatday);
                 Log.w(TAG, "23333333333 "+thatday+" "+Events);
                 x = left + (columnWidth - len)/2;
-                canvas.drawText(String.valueOf(Events), x-10, topPre + TextSpac+30, Paint);
+                if(day<10){
+                    canvas.drawCircle( x+49, topPre - TextSpac-56,EventsRadius/2, bgPaint);
+                    canvas.drawText(String.valueOf(Events), x+43, topPre - TextSpac-48, Paint);
+                }
+                else{
+                    canvas.drawCircle( x+63, topPre - TextSpac-58,EventsRadius/2, bgPaint);
+                    canvas.drawText(String.valueOf(Events), x+58, topPre - TextSpac-50, Paint);
+                }
+
             }
 
 
@@ -568,7 +579,7 @@ public class Calendarfinal extends View {
             touchDay(point, eventEnd);
         }
         else{
-            int len = (int)FontUtil.getFontlength(Paint, WEEK_STR[5]);
+            int len = (int) FontUtil.getFontlength(Paint, WEEK_STR[5]);
             if(eventEnd && listener!=null){
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());
@@ -586,7 +597,7 @@ public class Calendarfinal extends View {
 
 
                         Log.e(TAG, "888888888  "+shows+" "+Mmonth +" "+selectDay);
-                        listener.Syllabus(begindate,selectdate,todayWeekIndex,  Mmonth);
+                     //   listener.Syllabus(begindate,selectdate,todayWeekIndex,  Mmonth);
 
 //                    Date selectdate = StringDate(MonthtoString(month) +"-"+selectDay);
 //                    Log.e(TAG, "888888  "+begindate+" "+getMonthStr(month) +"-"+selectDay);
@@ -709,7 +720,7 @@ public class Calendarfinal extends View {
         public abstract void Title(String monthStr, Date month);
         public abstract void Week(int weekIndex, String weekStr);
         public abstract void Day(int day, String dayStr/*,MainActivity.DayFinish finish*/);
-        public abstract void Syllabus(Date begindate, Date selectdate, int todayweekindex, String dayStr) throws ParseException;
+       // public abstract void Syllabus(Date begindate, Date selectdate, int todayweekindex, String dayStr) throws ParseException;
  //       public abstract void Reminder(int month, int day,int todayweekindex, String dayStr);
 
     }

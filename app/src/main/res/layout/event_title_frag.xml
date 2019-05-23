@@ -32,11 +32,17 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="33dp"
         android:layout_marginRight="33dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="48dp"
         android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp"
         app:backgroundTint="?attr/colorPrimary"
-        app:srcCompat="@drawable/add"
-        tools:srcCompat="@android:drawable/ic_menu_add" />
+        tools:srcCompat="@drawable/ic_add_black_24dp" />
+    <Button
+        android:id="@+id/Finishview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="OK"/>
 
 
 </RelativeLayout>

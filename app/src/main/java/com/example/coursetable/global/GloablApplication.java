@@ -11,8 +11,6 @@ import android.os.Handler;
  */
 
 public class GloablApplication extends Application {
-    public static int sCurrentTheme;
-
     private static Context context;
     private static Handler handler;
     private static int mainThreadId;

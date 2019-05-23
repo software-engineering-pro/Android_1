@@ -33,7 +33,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="#7fab96c5">
+                android:background="?attr/colorPrimaryDark">
 
                 <TextView
                     android:layout_width="130px"

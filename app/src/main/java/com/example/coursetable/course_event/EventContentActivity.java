@@ -6,16 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.example.coursetable.DBHelper;
 import com.example.coursetable.Event;
 import com.example.coursetable.R;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
 
 public class EventContentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

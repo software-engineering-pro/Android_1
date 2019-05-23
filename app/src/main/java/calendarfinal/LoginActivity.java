@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.coursetable.DBHelper;
 import com.example.coursetable.R;
 
 import java.util.ArrayList;
@@ -34,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(new DBHelper(this).getLockState("lockState")==0){
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(LoginActivity.this, "com.example.coursetable.MainActivity"));
+            startActivity(intent);
+            finish();//销毁此Activity
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);

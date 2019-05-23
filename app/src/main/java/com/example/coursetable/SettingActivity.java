@@ -1,11 +1,13 @@
 package com.example.coursetable;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,13 +41,17 @@ import com.example.coursetable.utils.FileUtil;
 import com.example.coursetable.view.CircleImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
+import calendarfinal.DBOpenHelper;
+import calendarfinal.User;
+
 import static com.example.coursetable.utils.FileUtil.getRealFilePathFromUri;
 //目前想的是一进来就打开Syllabus，所以目前主活动是它，往后可能会改
 
 public class SettingActivity extends AppCompatActivity {
-
+    static Activity Setting;
+    private calendarfinal.DBOpenHelper dbOpenHelper;
     private RelativeLayout day;
     private DrawerLayout mDrawerLayout;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this, "database.db", null, 1);
@@ -53,14 +59,15 @@ public class SettingActivity extends AppCompatActivity {
     DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.d("duan", "0" );
         super.onCreate(savedInstanceState);
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         setContentView(R.layout.activity_setting);
         //加载顶部菜单栏（别的活动可能也需要）
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Setting=this;
         //设置界面头像
         DBHelper dbHelper = new DBHelper(this);
         CircleImageView  headImage1 = findViewById(R.id.head_image);
@@ -70,6 +77,25 @@ public class SettingActivity extends AppCompatActivity {
             headImage1.setImageBitmap(bitmap);
         }
 
+        NavigationView naviView = findViewById(R.id.nav_view);
+        View headerView = naviView.getHeaderView(0);
+
+
+        dbOpenHelper = new DBOpenHelper(this);
+        TextView helloText = (TextView) headerView.findViewById(R.id.username);
+        String s;
+        ArrayList<User> data666 = dbOpenHelper.getAllData();
+        s = data666.get(0).getName();
+        TextView helloText2 = (TextView) findViewById(R.id.textView);
+
+        helloText2.setText(s);
+
+        helloText.setText(s);
+        helloText.setTextColor(Color.WHITE);
+
+
+       // helloText2.setTextColor(Color.BLACK);
+
 
         //抽屉布局
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,9 +104,9 @@ public class SettingActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView naviView = findViewById(R.id.nav_view);
-//        setContentView(R.layout.rmain);
-        View headerView = naviView.getHeaderView(0);
+//        NavigationView naviView = findViewById(R.id.nav_view);
+////        setContentView(R.layout.rmain);
+//        View headerView = naviView.getHeaderView(0);
 
         de.hdodenhof.circleimageview.CircleImageView  headImage2 = headerView.findViewById(R.id.icon_image);
         byte[] data2 = dbHelper.getBitmapByName("pic");
@@ -104,7 +130,7 @@ public class SettingActivity extends AppCompatActivity {
                     finish();
                 }else if(id == R.id.nav_reminder){
                     Intent intent = new Intent();
-                    intent.setComponent(new ComponentName(SettingActivity.this, "memo.MainActivity"));
+                    intent.setComponent(new ComponentName(SettingActivity.this, "simplenotepad.MainActivity"));
                     startActivity(intent);
                     finish();
                 }else if(id == R.id.nav_calendar) {
@@ -131,14 +157,20 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        Button privacy = (Button)findViewById(R.id.privacy);
+        privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this,PrivacyActivity.class);
+                startActivity(intent);
+            }
+        });
         Button change_theme = (Button)findViewById(R.id.change_theme);
         change_theme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this,ThemeActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         Button about = (Button)findViewById(R.id.about);
@@ -147,7 +179,6 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this,AboutActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         headImage1.setOnClickListener(new View.OnClickListener() {
@@ -330,8 +361,7 @@ public class SettingActivity extends AppCompatActivity {
                     CircleImageView  headImage1 = findViewById(R.id.head_image);
                     headImage1.setImageBitmap(bitMap);
 
-                    //此处后面可以将bitMap转为二进制上传后台网络
-                    //......
+                    //将bitMap转为二进制上传数据库
                     dbHelper = new DBHelper(this);
                     byte[] b=BitmapUtils.getBytes(bitMap);
                     dbHelper.addBitmap("pic", b);

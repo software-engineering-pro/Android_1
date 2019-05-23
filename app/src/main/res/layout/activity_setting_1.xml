@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_alignParentTop="true"
+
                 android:layout_marginTop="0dp"
                 android:src="@drawable/nav_icon" />
 
@@ -43,7 +44,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="admin" />
+                android:textColor="#000000"
+                android:textSize="20dp"
+                />
 
             <!--<Button-->
                 <!--android:id="@+id/logout"-->
@@ -65,25 +68,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:textColor="@color/black"
                 android:text="  Theme"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
-
-
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#aac4c4c4" />
+            <Button
+                android:id="@+id/privacy"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:text="  Privacy"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#aac4c4c4" />
             <Button
                 android:id="@+id/logout"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:textColor="@color/black"
                 android:text="  Logout"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
-
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#aac4c4c4" />
             <Button
                 android:id="@+id/about"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:textColor="@color/black"
                 android:text="  About"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 

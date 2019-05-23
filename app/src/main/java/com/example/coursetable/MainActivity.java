@@ -40,11 +40,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
+import calendarfinal.DBOpenHelper;
+import calendarfinal.User;
+
 //目前想的是一进来就打开Syllabus，所以目前主活动是它，往后可能会改
 
 public class MainActivity extends AppCompatActivity {
     //存储所有的courseCodes,
+    private calendarfinal.DBOpenHelper dbOpenHelper;
     private ArrayList<String> courseCodes;
 
     //指定的不同的颜色
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         setContentView(R.layout.smain);
 
         courseCodes = new ArrayList<String>();
@@ -93,6 +96,16 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(this);
         de.hdodenhof.circleimageview.CircleImageView  headImage1 = headerView.findViewById(R.id.icon_image);
+
+        dbOpenHelper = new DBOpenHelper(this);
+        TextView helloText = (TextView) headerView.findViewById(R.id.username);
+        String s;
+        ArrayList<User> data666 = dbOpenHelper.getAllData();
+        s = data666.get(0).getName();
+        helloText.setText(s);
+        helloText.setTextColor(Color.WHITE);
+
+
         byte[] data = dbHelper.getBitmapByName("pic");
         if (data != null)   {
             Bitmap bitmap = BitmapUtils.getImage(data);
@@ -116,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
                     //你们的Activity
                     Intent intent = new Intent();
                     //intent.setComponent(new ComponentName(MainActivity.this, "com.example.coursetable.MainActivity"));
-                    intent.setComponent(new ComponentName(MainActivity.this, "memo.MainActivity"));
+                    intent.setComponent(new ComponentName(MainActivity.this, "simplenotepad.MainActivity"));
                     startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Here is Reminder", Toast.LENGTH_SHORT).show();
+                    finish();
+                    //Toast.makeText(MainActivity.this, "Here is Reminder", Toast.LENGTH_SHORT).show();
                 }else if(id == R.id.nav_calendar) {
                     //你们的Activity
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -128,11 +142,13 @@ public class MainActivity extends AppCompatActivity {
                     intent.setComponent(new ComponentName(MainActivity.this, "calendarfinal.MainActivity"));
                     //intent = new Intent(this, com.example.coursetable.MainActivity.class);
                     startActivity(intent);
+                    finish();
 
                 } else if(id == R.id.nav_setting) {
                    mDrawerLayout.closeDrawer(GravityCompat.START);
                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
                    startActivity(intent);
+                    finish();
             }
                 return true;
             }

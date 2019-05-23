@@ -31,24 +31,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="\n事件标题"/>
+
             <EditText
                 android:id="@+id/input_event_title"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/textview_bottom_border"
                 android:imeOptions="actionNext"
-                android:singleLine="true"/>
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="\n事件详情" />
+
             <EditText
                 android:id="@+id/input_event_detail"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
+                android:background="@drawable/textview_bottom_border"
                 android:imeOptions="actionNext"
                 android:singleLine="false" />
 

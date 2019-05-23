@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
-
 public class AddCourseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         Log.d("Test", "AddCourseActivity is started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);

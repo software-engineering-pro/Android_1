@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.coursetable.CourseEdition;
+import com.example.coursetable.DBHelper;
 import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
 import com.example.coursetable.MainActivity;
@@ -21,14 +22,15 @@ import com.example.coursetable.R;
 
 import java.util.List;
 
-import static com.example.coursetable.global.GloablApplication.sCurrentTheme;
+import calendarfinal.ViewEvents;
+
 
 public class AddCourseEvent extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(sCurrentTheme);
+        setTheme(new DBHelper(this).getTheme("theme"));
         Log.d("Test", "AddCourseEvent is created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course_event);
@@ -43,6 +45,16 @@ public class AddCourseEvent extends AppCompatActivity {
                 Intent intent = new Intent(AddCourseEvent.this, AddEvent.class);
                 intent.putExtra("this_course", course);
                 startActivityForResult(intent, 3);
+            }
+        });
+
+        Button finishview = (Button)findViewById(R.id.Finishview);
+        finishview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(AddCourseEvent.this, com.example.coursetable.MainActivity.class);
+                startActivity(intent1);
+                finish();
             }
         });
     }

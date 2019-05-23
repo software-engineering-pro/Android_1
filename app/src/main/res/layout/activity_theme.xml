@@ -23,49 +23,81 @@
         android:gravity="left"
         android:text="    BLUE"
         android:textAppearance="@style/TextAppearance.AppCompat" />
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
     <Button
         android:id="@+id/btn_switch_theme_green"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:text="    GREEN"
         android:textAppearance="@style/TextAppearance.AppCompat" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
     <Button
         android:id="@+id/btn_switch_theme_red"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:text="    RED"
         android:textAppearance="@style/TextAppearance.AppCompat" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
     <Button
         android:id="@+id/btn_switch_theme_orange"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:text="    ORANGE"
         android:textAppearance="@style/TextAppearance.AppCompat" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
     <Button
         android:id="@+id/btn_switch_theme_pink"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:text="    PINK"
         android:textAppearance="@style/TextAppearance.AppCompat" />
-
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#aac4c4c4" />
     <Button
         android:id="@+id/btn_switch_theme_black"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:text="    BLACK"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
-    </LinearLayout>
+</LinearLayout>
 

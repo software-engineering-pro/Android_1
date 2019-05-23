@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.app.ListFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,8 +26,12 @@ import com.example.coursetable.DatabaseHelper;
 import com.example.coursetable.Event;
 import com.example.coursetable.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class EventTitleFragment extends Fragment {
     public boolean isTwoPane;
@@ -34,6 +39,8 @@ public class EventTitleFragment extends Fragment {
     private LayoutInflater inflater;
     private ViewGroup container;
     private static CourseEdition courseEdition;
+    private static String thisday;
+    private int mode = 0; //if mode = 1 coursemode, if mode = 2 datamode
 
     @Nullable
     @Override
@@ -42,38 +49,81 @@ public class EventTitleFragment extends Fragment {
         RecyclerView eventTitleRecyclerView = (RecyclerView) view.findViewById(R.id.event_title_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         CourseEdition temp = (CourseEdition)getActivity().getIntent().getSerializableExtra("this_course");
+        String temp2 = (String)getActivity().getIntent().getSerializableExtra("thisday");
+
         if(temp != null){
             courseEdition = temp;
+            mode = 1;
+            //Log.d("13723773255",temp2);
         }
+
+        //Log.d("CCCCCCCCCCheck",temp2);
+
+        if(temp2 != null){
+            thisday = temp2;
+            mode = 2;
+        }
+
+
         eventTitleRecyclerView.setLayoutManager(layoutManager);
+        //System.out.println("hhhhhhhhhhhhhhhhh "+thisday);
         Log.d("Test", "Fragment is created");
+        //Log.d("Test", getEvents().toString());
+        Log.d("Test","17");
         EventAdapter adapter = new EventAdapter(getEvents());
         eventTitleRecyclerView.setAdapter(adapter);
         return view;
     }
 
     public List<Event> getEvents(){
+        Log.d("Test","6");
         List<Event> eventList = new ArrayList<>();
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "database.db", null, 1);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
-        Log.d("Test", "fragment " + courseEdition.getCourseCode());
+        //       Log.d("Test", "fragment " + courseEdition.getCourseCode());
 //        courseEdition = (CourseEdition) getActivity().getIntent().getSerializableExtra("this_course");
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from events WHERE event_code in (select event_code from course_events where course_code = ?)",new String[]{courseEdition.getCourseCode()});
-        Log.d("Test", "读取数据");
-        if(cursor.moveToFirst()){
-            do{
-                eventList.add(new Event(
-                        cursor.getInt(cursor.getColumnIndex("event_code")),
-                        cursor.getString(cursor.getColumnIndex("topic")),
-                        cursor.getString(cursor.getColumnIndex("detail")),
-                        cursor.getString(cursor.getColumnIndex("deadline"))
-                        )
-                );
-                Log.d("Test",cursor.getString(cursor.getColumnIndex("topic")));
-            }while (cursor.moveToNext());
-            cursor.close();
+
+
+        if(mode == 1){
+            Cursor cursor = sqLiteDatabase.rawQuery("select * from events WHERE event_code in (select event_code from course_events where course_code = ?)",new String[]{courseEdition.getCourseCode()});
+            Log.d("Test", "读取course数据");
+            if(cursor.moveToFirst()){
+                do{
+                    eventList.add(new Event(
+                                    cursor.getInt(cursor.getColumnIndex("event_code")),
+                                    cursor.getString(cursor.getColumnIndex("topic")),
+                                    cursor.getString(cursor.getColumnIndex("detail")),
+                                    cursor.getString(cursor.getColumnIndex("deadline"))
+                            )
+                    );
+                    Log.d("Test",cursor.getString(cursor.getColumnIndex("topic")));
+                }while (cursor.moveToNext());
+                cursor.close();
+            }
+            sqLiteDatabase.close();
         }
-        sqLiteDatabase.close();
+        else if(mode == 2){
+            Log.d("Test","5");
+            //System.out.println("13723773255"+thisday);
+            Cursor cursor = sqLiteDatabase.rawQuery("select * from events WHERE Date(deadline) = ?",new String[]{getsub(thisday)});
+            Log.d("Test", "读取date数据");
+            if(cursor.moveToFirst()){
+                Log.d("Test","111");
+                do{
+                    eventList.add(new Event(
+                                    cursor.getInt(cursor.getColumnIndex("event_code")),
+                                    cursor.getString(cursor.getColumnIndex("topic")),
+                                    cursor.getString(cursor.getColumnIndex("detail")),
+                                    cursor.getString(cursor.getColumnIndex("deadline"))
+                            )
+                    );
+                    Log.d("Test777",cursor.getString(cursor.getColumnIndex("topic")));
+                }while (cursor.moveToNext());
+                cursor.close();
+                //System.out.println("13723773255"+eventList.get(0).getTopic());
+            }
+            sqLiteDatabase.close();
+        }
         return eventList;
     }
 
@@ -87,6 +137,7 @@ public class EventTitleFragment extends Fragment {
         private List<Event> mEventList;
 
         class ViewHolder extends RecyclerView.ViewHolder{
+
             TextView eventTitleText;
             //?
             public ViewHolder(View view){
@@ -102,6 +153,7 @@ public class EventTitleFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            Log.d("Test","33");
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
             final ViewHolder holder = new ViewHolder(view);
             view.setOnClickListener(new View.OnClickListener(){
@@ -150,25 +202,25 @@ public class EventTitleFragment extends Fragment {
         //Recyler里显示内容
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            Log.d("Test","3");
+
             Event event = mEventList.get(position);
             holder.eventTitleText.setText(event.getTopic());
         }
 
         @Override
         public int getItemCount() {
+            Log.d("Test","2");
             return mEventList.size();
         }
 
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-    }
 
     private void deleteData(Event event){
+        Log.d("Test","1");
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "database.db", null, 1);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
         sqLiteDatabase.execSQL("delete from events where " + "event_code = ?", new Integer[]{event.getEventCode()});
@@ -180,6 +232,15 @@ public class EventTitleFragment extends Fragment {
         Log.d("Test1", "go back");
         activity.finish();
     }
+
+    private String getsub(String in){
+        String sub = in.substring(0,10);
+        System.out.println("18885in "+in);
+        System.out.println("18885 "+sub);
+        return sub;
+    }
+
+
 
 
 }

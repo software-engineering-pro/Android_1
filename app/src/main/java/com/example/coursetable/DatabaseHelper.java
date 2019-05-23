@@ -3,8 +3,6 @@ package com.example.coursetable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     //将数据库的初始操作（建表等）都写在这里
@@ -48,6 +46,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "primary key (course_code, event_code),"+
             "foreign key (event_code) references  events(event_code) on delete cascade  on update cascade)";
 
+    public static final String CREATE_DAY_EVENTS = "create table day_events("+
+            "thisday text,"+
+            "event_code integer,"+
+            "primary key (thisday, event_code),"+
+            "foreign key (event_code) references  events(event_code) on delete cascade  on update cascade)";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_COURSES);
@@ -55,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TYPES);
         db.execSQL(CREATE_EVENTS);
         db.execSQL(CREATE_COURSE_EVENTS);
+        db.execSQL(CREATE_DAY_EVENTS);
     }
 
     @Override
